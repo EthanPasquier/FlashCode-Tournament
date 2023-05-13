@@ -11,8 +11,6 @@ file_contents = []
 banner = "                         ______                     \n _________        .------      ------.              \n:______.- :      :  .--------------.  :             \n| ______  |      | :                : |             \n|:______B:|      | |    Client.py : | |             \n|:______B:|      | |                | |             \n|:______B:|      | |  Power found   | |             \n|         |      | |  with succes.  | |             \n|:_____:  |      | |                | |             \n|    ==   |      | :                : |             \n|       O |      :   --------------   :             \n|       o |      : ---...______...---               \n|       o |-._.-i___/              \._              \n| -.____o_|    -.    -...______...-   `-._          \n:_________:      `.____________________   `-.___.-. \n                 . .eeeeeeeeeeeeeeeeee. .      :___:\nEthanPasquier  . .eeeeeeeeeeeeeeeeeeeeee. .         \nReneMarceau   :____________________________:\n\n"
 succes = "\033[1;32mSUCCES\033[1;33m"
 
-
-
 def ft_help():
     os.system('clear')
     print(Fore.GREEN + "Bienvenue dans FlashCode !" + Style.RESET_ALL)
@@ -120,8 +118,9 @@ if __name__ == '__main__':
     helps = input("\033[1;34m[Appuyez sur entrer pour continuer ou faite 'h' pour help] : \033[0m")
     if (helps == "h"):
         ft_help()
+    ip_server = input("Veuillez entrée l'ip du Host : \033[1;31m")
     client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    client_socket.connect(('localhost', 12345))
+    client_socket.connect((ip_server, 12345))
     os.system('clear')
     print("\033[1;34m --- Connected to chat server ["+succes+"\033[1;34m]---\n\033[0m\n")
     print("\033[1;34mQuand tout les joueurs seront present , la partie commencera ...\n\033[0m\n")

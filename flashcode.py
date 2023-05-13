@@ -67,7 +67,9 @@ class ChatServer:
         self.clients = []
         self.server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-        self.server_socket.bind(('0.0.0.0', 12345))
+        self.server_socket.bind((socket.gethostname(), 12345))
+        local_ip = self.server_socket.getsockname()[0]
+        print("Adresse IP locale :", local_ip)
         self.server_socket.listen()
 
     def broadcast(self, message):
