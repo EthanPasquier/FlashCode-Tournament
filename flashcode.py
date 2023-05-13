@@ -119,7 +119,13 @@ if (helps == "h"):
     os.system('clear')
     print("\033[1;32m"+banner)
     print("\033[1;34m[Appuyez sur entrer pour continuer ou faite 'h' pour help] : \033[0mh")
-nb_joueur = int(input("\033[1;34mEntrez le nombre de joueur : \033[1;31m"))
-nb_manche = int(input("\033[1;34mEntrez le nombre de manche : \033[1;31m"))
+nb_joueur = int(input("\033[1;34mEntrez le nombre de joueur [min 3]: \033[1;31m"))
+if nb_joueur < 3:
+    print("\033[1;31mLe nombre de joueur doit être supérieur ou égale à 2")
+    exit()
+nb_manche = int(input("\033[1;34mEntrez le nombre de manche [min 1]: \033[1;31m"))
+if nb_manche < 1:
+    print("\033[1;31mLe nombre de manche doit être supérieur ou égale à 1")
+    exit()
 server = ChatServer()
 server.start()
