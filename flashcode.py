@@ -76,7 +76,6 @@ class ChatServer:
 
     def handle_client(self, client_socket, client_address,isvalid):
         print(f"\033[1;32mNew connection from \033[1;31m{client_address}\033[1;30m")
-        print("manche = "+str(nb_manche))
         self.clients.append(client_socket)
         i = len(self.clients) # Index of the current client
         if(i == nb_joueur):
