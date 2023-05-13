@@ -85,7 +85,7 @@ class ChatServer:
             for manche in range(0, nb_manche):
                 self.broadcast("fgt48rgtg8trg54484tg78grtg879g4th87hrth4tr78trhh78trh4rh785rh7rt8rh75678rthr")
                 print("\033[1;32mManche "+str(manche+1)+"\033[1;30m")
-                time.sleep(35)
+                time.sleep(605)
             self.broadcast("szad4zede78rr5tgtyj7yui4urfer7z4dax4e78rcerthj7y4t4t41rr15qx6568zrg")
         while True:
             try:

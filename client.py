@@ -65,11 +65,11 @@ def start(client_socket):
     print("\033[1;34m --- Commencement de la Manche !!! ---\033[0m\n")
     print("\033[1;32m[Vous avez 10 minutes pour coder votre programme dans le dossier \033[1;34m"+repo_name+"\033[1;32m]\033[0m")
     start_time = time.monotonic()
-    end_time = start_time + 30
+    end_time = start_time + 600
     while time.monotonic() < end_time:
         remaining_time = end_time - time.monotonic()
-        print(f"\033[1;31mTemps restant : {int(remaining_time/30)} minutes")
-        time.sleep(5)
+        print(f"\033[1;31mTemps restant : {int(remaining_time/60)} minutes")
+        time.sleep(60)
     os.system("clear")
     print("\033[1;31mRecuperation des fichiers ...")
     files_and_folders = os.listdir(path)
