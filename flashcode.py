@@ -5,17 +5,11 @@ from colorama import Fore, Style
 import json
 import os
 import subprocess
+import asyncio
 import socket
 import os
 import threading
 
-nb_joueur = 0
-url_self = ""
-joueurs = []
-url_joueurs = []
-self = -1
-nb_manche = 10
-repo_name = 'FlashCode-Tournament'
 
 banner = """   _____________________
   /                 `   \\
@@ -59,10 +53,29 @@ def ft_help():
     print("\nBonne chance et amusez-vous bien dans FlashCode !")
     helps = input("\033[1;34m[Appuyez sur entrer pour continuer]\033[0m")
 
+nb_joueur = 0
+reel_nb_joueur = 0
+url_self = ""
+joueurs = []
+url_joueurs = []
+self = -1
+nb_manche = 10
+game_duration = 600
+repo_name = 'FlashCode-Tournament'
 
 class ChatServer:
+    def start_game(self,reel_nb_joueur, nb_joueur, game_duration, nb_manche):
+        if reel_nb_joueur == nb_joueur:
+            self.game()
+            for manche in range(0, nb_manche):
+                self.broadcast("fgt48rgtg8trg54484tg78grtg879g4th87hrth4tr78trhh78trh4rh785rh7rt8rh75678rthr")
+                print("\033[1;32mManche " + str(manche+1) + "\033[1;30m")
+                time.sleep(game_duration)
+            self.broadcast("szad4zede78rr5tgtyj7yui4urfer7z4dax4e78rcerthj7y4t4t41rr15qx6568zrg")
+
     def game(self):
         print("\033[1;32mLa partie va commencer")
+
     def __init__(self):
         self.clients = []
         self.server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -76,17 +89,13 @@ class ChatServer:
         for client in self.clients:
             client.send(message.encode())
 
+
     def handle_client(self, client_socket, client_address,isvalid):
         print(f"\033[1;32mNew connection from \033[1;31m{client_address}\033[1;30m")
-        self.clients.append(client_socket)
+
         i = len(self.clients) # Index of the current client
-        if(i == nb_joueur):
-            self.game()
-            for manche in range(0, nb_manche):
-                self.broadcast("fgt48rgtg8trg54484tg78grtg879g4th87hrth4tr78trhh78trh4rh785rh7rt8rh75678rthr")
-                print("\033[1;32mManche "+str(manche+1)+"\033[1;30m")
-                time.sleep(605)
-            self.broadcast("szad4zede78rr5tgtyj7yui4urfer7z4dax4e78rcerthj7y4t4t41rr15qx6568zrg")
+        duration = "fdhgfodhgfoghroghrgorhgoerhgoerhgo:"+str(game_duration)
+        client_socket.send(duration.encode())
         while True:
             try:
                 message = client_socket.recv(1024).decode()
@@ -106,11 +115,17 @@ class ChatServer:
 
     def start(self):
         isvalid = 0
-        print("\033[1;34mLe serveur est en attente de connexion")
+        i = 0
+        print("\033[1;34mLe serveur est en attente de connexion\033[1;30mL")
         while True:
             client_socket, client_address = self.server_socket.accept()
             client_thread = threading.Thread(target=self.handle_client, args=(client_socket, client_address , isvalid))
             client_thread.start()
+            i += 1
+            if i == nb_joueur:
+                print("\033[1;32mTous les joueurs sont connectés")
+                startnow = threading.Thread(target=self.start_game, args=(i, nb_joueur, game_duration+5, nb_manche))
+                startnow.start()
 
 
 print("\033[1;32m"+banner)

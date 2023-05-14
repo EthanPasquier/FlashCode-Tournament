@@ -10,6 +10,7 @@ file_names = []
 file_contents = []
 banner = "                         ______                     \n _________        .------      ------.              \n:______.- :      :  .--------------.  :             \n| ______  |      | :                : |             \n|:______B:|      | |    Client.py : | |             \n|:______B:|      | |                | |             \n|:______B:|      | |  Power found   | |             \n|         |      | |  with succes.  | |             \n|:_____:  |      | |                | |             \n|    ==   |      | :                : |             \n|       O |      :   --------------   :             \n|       o |      : ---...______...---               \n|       o |-._.-i___/              \._              \n| -.____o_|    -.    -...______...-   `-._          \n:_________:      `.____________________   `-.___.-. \n                 . .eeeeeeeeeeeeeeeeee. .      :___:\nEthanPasquier  . .eeeeeeeeeeeeeeeeeeeeee. .         \nReneMarceau   :____________________________:\n\n"
 succes = "\033[1;32mSUCCES\033[1;33m"
+duration = 600
 
 def ft_help():
     os.system('clear')
@@ -65,11 +66,11 @@ def start(client_socket):
     print("\033[1;34m --- Commencement de la Manche !!! ---\033[0m\n")
     print("\033[1;32m[Vous avez 10 minutes pour coder votre programme dans le dossier \033[1;34m"+repo_name+"\033[1;32m]\033[0m")
     start_time = time.monotonic()
-    end_time = start_time + 600
+    end_time = start_time + duration
     while time.monotonic() < end_time:
         remaining_time = end_time - time.monotonic()
         print(f"\033[1;31mTemps restant : {int(remaining_time/60)} minutes")
-        time.sleep(60)
+        time.sleep(10)
     os.system("clear")
     print("\033[1;31mRecuperation des fichiers ...")
     files_and_folders = os.listdir(path)
@@ -80,7 +81,6 @@ def start(client_socket):
             with open(path_file, 'r') as f:
                 contents = f.read()
                 file_contents.append(contents)
-    
     os.system("rm -rf "+repo_name)
     index = 0
     os.system("mkdir "+repo_name)
@@ -100,6 +100,10 @@ def receive_messages(client_socket):
     while True:
         message = client_socket.recv(1024).decode()
         text = str(message)
+        if (text.startswith("fdhgfodhgfoghroghrgorhgoerhgoerhgo:")):
+            file_index = len("fdhgfodhgfoghroghrgorhgoerhgoerhgo:")
+            file_name = text[file_index:].strip()
+            duration = int(file_name)
         if (text.startswith("fgt48rgtg8trg54484tg78grtg879g4th87hrth4tr78trhh78trh4rh785rh7rt8rh75678rthr")):
             os.system("mkdir "+repo_name)
             start(client_socket)
@@ -111,6 +115,8 @@ def receive_messages(client_socket):
             print("Merci d'avoir jouer a FlashCode")
             client_socket.close()
             exit()
+        else:
+            print(message)
 
 
 if __name__ == '__main__':
@@ -118,13 +124,13 @@ if __name__ == '__main__':
     helps = input("\033[1;34m[Appuyez sur entrer pour continuer ou faite 'h' pour help] : \033[0m")
     if (helps == "h"):
         ft_help()
-    ip_server = input("Veuillez entrée l'ip du Host : \033[1;31m")
+    ipserv = input("\033[1;34m[Entrez l'ip du serveur] : \033[31m")
     client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    client_socket.connect((ip_server, 12345))
+    client_socket.connect((ipserv, 12345))
     os.system('clear')
     print("\033[1;34m --- Connected to chat server ["+succes+"\033[1;34m]---\n\033[0m\n")
     print("\033[1;34mQuand tout les joueurs seront present , la partie commencera ...\n\033[0m\n")
-    receive_thread = threading.Thread(target=receive_messages, args=(client_socket,))
-    receive_thread.start()
     send_thread = threading.Thread(target=send_messages, args=(client_socket,))
     send_thread.start()
+    receive_thread = threading.Thread(target=receive_messages, args=(client_socket,))
+    receive_thread.start()
