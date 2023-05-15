@@ -12,6 +12,7 @@ import threading
 nb_joueur = 0
 url_self = ""
 joueurs = []
+ip_server = ""
 url_joueurs = []
 self = -1
 nb_manche = 10
@@ -59,6 +60,26 @@ def ft_help():
     print("\nBonne chance et amusez-vous bien dans FlashCode !")
     helps = input("\033[1;34m[Appuyez sur entrer pour continuer]\033[0m")
 
+def get_local_ip():
+    """
+    Retourne l'adresse IP locale du système.
+    """
+    # Crée une socket UDP
+    sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+
+    try:
+        # Tente de se connecter à une adresse IP de référence, dans ce cas-ci, Google Public DNS
+        sock.connect(("8.8.8.8", 80))
+
+        # Récupère l'adresse IP locale associée à la socket
+        local_ip = sock.getsockname()[0]
+
+        return local_ip
+    except socket.error:
+        print("Impossible de récupérer l'adresse IP locale.")
+    finally:
+        # Ferme la socket
+        sock.close()
 
 class ChatServer:
     def game(self):
@@ -67,9 +88,10 @@ class ChatServer:
         self.clients = []
         self.server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-        self.server_socket.bind((socket.gethostname(), 12345))
+        ip = get_local_ip()
+        self.server_socket.bind((ip, 12345))
         local_ip = self.server_socket.getsockname()[0]
-        print("Adresse IP locale :", local_ip)
+        print("Adresse IP locale :", ip)
         self.server_socket.listen()
 
     def broadcast(self, message):
@@ -85,7 +107,7 @@ class ChatServer:
             for manche in range(0, nb_manche):
                 self.broadcast("fgt48rgtg8trg54484tg78grtg879g4th87hrth4tr78trhh78trh4rh785rh7rt8rh75678rthr")
                 print("\033[1;32mManche "+str(manche+1)+"\033[1;30m")
-                time.sleep(35)
+                time.sleep(605)
             self.broadcast("szad4zede78rr5tgtyj7yui4urfer7z4dax4e78rcerthj7y4t4t41rr15qx6568zrg")
         while True:
             try:
@@ -115,6 +137,8 @@ class ChatServer:
 
 print("\033[1;32m"+banner)
 helps = input("\033[1;34m[Appuyez sur entrer pour continuer ou faite 'h' pour help] : \033[0m")
+
+
 if (helps == "h"):
     ft_help()
     os.system('clear')
@@ -128,5 +152,6 @@ nb_manche = int(input("\033[1;34mEntrez le nombre de manche [min 1]: \033[1;31m"
 if nb_manche < 1:
     print("\033[1;31mLe nombre de manche doit être supérieur ou égale à 1")
     exit()
+
 server = ChatServer()
 server.start()
