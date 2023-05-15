@@ -69,7 +69,7 @@ def get_local_ip():
 
     try:
         # Tente de se connecter à une adresse IP de référence, dans ce cas-ci, Google Public DNS
-        sock.connect(("8.8.8.8", 80))
+        sock.connect(("8.8.8.8", 3000))
 
         # Récupère l'adresse IP locale associée à la socket
         local_ip = sock.getsockname()[0]

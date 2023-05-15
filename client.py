@@ -9,7 +9,7 @@ file_names = []
 file_contents = []
 banner = "                         ______                     \n _________        .------      ------.              \n:______.- :      :  .--------------.  :             \n| ______  |      | :                : |             \n|:______B:|      | |    Client.py : | |             \n|:______B:|      | |                | |             \n|:______B:|      | |  Power found   | |             \n|         |      | |  with succes.  | |             \n|:_____:  |      | |                | |             \n|    ==   |      | :                : |             \n|       O |      :   --------------   :             \n|       o |      : ---...______...---               \n|       o |-._.-i___/              \._              \n| -.____o_|    -.    -...______...-   `-._          \n:_________:      `.____________________   `-.___.-. \n                 . .eeeeeeeeeeeeeeeeee. .      :___:\nEthanPasquier  . .eeeeeeeeeeeeeeeeeeeeee. .         \nReneMarceau   :____________________________:\n\n"
 succes = "\033[1;32mSUCCES\033[1;33m"
-duration = 60
+duration = 600
 def ft_help():
     os.system('clear')
     print("\033[1;32mBienvenue dans FlashCode !\033[0m")
