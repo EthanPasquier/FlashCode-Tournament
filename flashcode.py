@@ -14,8 +14,8 @@ joueurs = []
 ip_server = ""
 url_joueurs = []
 self = -1
-game_duration = 600
 nb_manche = 10
+game_duration = 600
 repo_name = 'FlashCode-Tournament'
 
 banner = """   _____________________
@@ -83,16 +83,15 @@ def get_local_ip():
 
 class ChatServer:
     
-    def start_game(self,reel_nb_joueur, nb_joueur, game_duration, nb_manche):
-        if reel_nb_joueur == nb_joueur:
-            self.game()
-            for manche in range(0, nb_manche):
-                self.broadcast("fgt48rgtg8trg54484tg78grtg879g4th87hrth4tr78trhh78trh4rh785rh7rt8rh75678rthr")
-                print("\033[1;32mManche " + str(manche+1) + "\033[1;30m")
-                time.sleep(game_duration)
-            self.broadcast("szad4zede78rr5tgtyj7yui4urfer7z4dax4e78rcerthj7y4t4t41rr15qx6568zrg")
     def game(self):
         print("\033[1;32mLa partie va commencer")
+    def start_game(self,reel_nb_joueur, nb_joueur, game_duration, nb_manche):
+        self.game()
+        for manche in range(0, nb_manche):
+            self.broadcast("fgt48rgtg8trg54484tg78grtg879g4th87hrth4tr78trhh78trh4rh785rh7rt8rh75678rthr")
+            print("\033[1;32mManche " + str(manche+1) + "\033[1;30m")
+            time.sleep(game_duration)
+        self.broadcast("szad4zede78rr5tgtyj7yui4urfer7z4dax4e78rcerthj7y4t4t41rr15qx6568zrg")
     def __init__(self):
         self.clients = []
         self.server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -111,6 +110,8 @@ class ChatServer:
         print(f"\033[1;32mNew connection from \033[1;31m{client_address}\033[1;30m")
         self.clients.append(client_socket)
         i = len(self.clients) # Index of the current client
+        duration = "fdhgfodhgfoghroghrgorhgoerhgoerhgo:"+str(game_duration)
+        client_socket.send(duration.encode())
         while True:
             try:
                 message = client_socket.recv(1024).decode()
@@ -137,6 +138,7 @@ class ChatServer:
             client_thread = threading.Thread(target=self.handle_client, args=(client_socket, client_address , isvalid))
             client_thread.start()
             i += 1
+            time.sleep(1)
             if i == nb_joueur:
                 print("\033[1;32mTous les joueurs sont connectés")
                 startnow = threading.Thread(target=self.start_game, args=(i, nb_joueur, game_duration+5, nb_manche))

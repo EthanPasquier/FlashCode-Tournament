@@ -9,7 +9,7 @@ file_names = []
 file_contents = []
 banner = "                         ______                     \n _________        .------      ------.              \n:______.- :      :  .--------------.  :             \n| ______  |      | :                : |             \n|:______B:|      | |    Client.py : | |             \n|:______B:|      | |                | |             \n|:______B:|      | |  Power found   | |             \n|         |      | |  with succes.  | |             \n|:_____:  |      | |                | |             \n|    ==   |      | :                : |             \n|       O |      :   --------------   :             \n|       o |      : ---...______...---               \n|       o |-._.-i___/              \._              \n| -.____o_|    -.    -...______...-   `-._          \n:_________:      `.____________________   `-.___.-. \n                 . .eeeeeeeeeeeeeeeeee. .      :___:\nEthanPasquier  . .eeeeeeeeeeeeeeeeeeeeee. .         \nReneMarceau   :____________________________:\n\n"
 succes = "\033[1;32mSUCCES\033[1;33m"
-duration = 600
+duration = 60
 def ft_help():
     os.system('clear')
     print("\033[1;32mBienvenue dans FlashCode !\033[0m")
@@ -41,10 +41,6 @@ def send_messages(client_socket):
 
 def ft_sync(message):
     file_index = message.find("FILE:")
-    if (text.startswith("fdhgfodhgfoghroghrgorhgoerhgoerhgo:")):
-        file_index = len("fdhgfodhgfoghroghrgorhgoerhgoerhgo:")
-        file_name = text[file_index:].strip()
-        duration = int(file_name)
     if file_index != -1:
         file_index += len("FILE:")
         end_index = message.find("\n", file_index)
@@ -103,6 +99,11 @@ def receive_messages(client_socket):
     while True:
         message = client_socket.recv(1024).decode()
         text = str(message)
+        if (text.startswith("fdhgfodhgfoghroghrgorhgoerhgoerhgo:")):
+            file_index = len("fdhgfodhgfoghroghrgorhgoerhgoerhgo:")
+            file_name = text[file_index:].strip()
+            duration = int(file_name)
+            print("time = "+str(duration))
         if (text.startswith("fgt48rgtg8trg54484tg78grtg879g4th87hrth4tr78trhh78trh4rh785rh7rt8rh75678rthr")):
             os.system("mkdir "+repo_name)
             start(client_socket)
