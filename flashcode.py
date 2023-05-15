@@ -1,7 +1,6 @@
 import datetime
 import time
 import requests
-from colorama import Fore, Style
 import json
 import os
 import subprocess
@@ -38,24 +37,24 @@ banner = """   _____________________
 
 def ft_help():
     os.system('clear')
-    print(Fore.GREEN + "Bienvenue dans FlashCode !" + Style.RESET_ALL)
-    print(Fore.GREEN + "\nVoici les règles du jeu :\n"+ Style.RESET_ALL)
-    print(Fore.YELLOW + "1 - Vous allez coder un script dans le terminal.")
+    print("\033[1;32mBienvenue dans FlashCode !\033[0m")
+    print("\033[1;34m\nVoici les règles du jeu :\n\033[0m")
+    print("1 - Vous allez coder un script dans le terminal.")
     print("2 - Toutes les 10 minutes, les scripts seront échangés entre les joueurs.")
     print("3 - Vous devrez continuer le script d'un autre joueur.")
     print("4 - Le serveur du jeu s'appelle \"flashcode.py\" et le client s'appelle \"client.py\". Notez que \"flashcode.py\" n'est pas un joueur, il héberge le jeu.")
     print("5 - N'écrivez jamais sur la fenêtre du terminal du programme lorsque celui-ci est en cours d'exécution, à moins qu'il ne vous demande explicitement d'écrire quelque chose.")
-    print("6 - Le programme générera automatiquement un dossier toutes les 10 minutes dans le répertoire actuel. Vous devrez simplement entrer dans le dossier et y trouver le script d'un autre joueur." + Style.RESET_ALL)
+    print("6 - Le programme générera automatiquement un dossier toutes les 10 minutes dans le répertoire actuel. Vous devrez simplement entrer dans le dossier et y trouver le script d'un autre joueur.\033[0m")
     
     print("\nVoici quelques instructions pour vous aider à jouer :\n")
-    print(Fore.CYAN + "1 - Exécutez le script \"client.py\" pour rejoindre le jeu.")
+    print("\033[1;32m1 - Exécutez le script \"client.py\" pour rejoindre le jeu.")
     print("2 - Attendez que tous les joueurs soient prêts pour que la partie commence.")
     print("3 - Lorsque vous recevez le script d'un autre joueur, entrez dans le dossier généré par le programme.")
     print("(Note : Si c'est la première manche, il n'y aura pas de script, vous devrez donc en créer un dans le nouveau répertoire.)")
     print("4 - Ouvrez le script avec un éditeur de texte et continuez à coder la suite.")
     print("5 - Enregistrez le script modifié.")
     print("6 - Quittez le dossier et attendez le prochain échange.")
-    print("7 - Répétez les étapes précédentes jusqu'à la fin du jeu." + Style.RESET_ALL)
+    print("7 - Répétez les étapes précédentes jusqu'à la fin du jeu.\033[0m")
     
     print("\nBonne chance et amusez-vous bien dans FlashCode !")
     helps = input("\033[1;34m[Appuyez sur entrer pour continuer]\033[0m")
