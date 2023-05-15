@@ -9,7 +9,7 @@ file_names = []
 file_contents = []
 banner = "                         ______                     \n _________        .------      ------.              \n:______.- :      :  .--------------.  :             \n| ______  |      | :                : |             \n|:______B:|      | |    Client.py : | |             \n|:______B:|      | |                | |             \n|:______B:|      | |  Power found   | |             \n|         |      | |  with succes.  | |             \n|:_____:  |      | |                | |             \n|    ==   |      | :                : |             \n|       O |      :   --------------   :             \n|       o |      : ---...______...---               \n|       o |-._.-i___/              \._              \n| -.____o_|    -.    -...______...-   `-._          \n:_________:      `.____________________   `-.___.-. \n                 . .eeeeeeeeeeeeeeeeee. .      :___:\nEthanPasquier  . .eeeeeeeeeeeeeeeeeeeeee. .         \nReneMarceau   :____________________________:\n\n"
 succes = "\033[1;32mSUCCES\033[1;33m"
-
+duration = 600
 def ft_help():
     os.system('clear')
     print("\033[1;32mBienvenue dans FlashCode !\033[0m")
@@ -41,6 +41,10 @@ def send_messages(client_socket):
 
 def ft_sync(message):
     file_index = message.find("FILE:")
+    if (text.startswith("fdhgfodhgfoghroghrgorhgoerhgoerhgo:")):
+        file_index = len("fdhgfodhgfoghroghrgorhgoerhgoerhgo:")
+        file_name = text[file_index:].strip()
+        duration = int(file_name)
     if file_index != -1:
         file_index += len("FILE:")
         end_index = message.find("\n", file_index)
@@ -64,7 +68,7 @@ def start(client_socket):
     print("\033[1;34m --- Commencement de la Manche !!! ---\033[0m\n")
     print("\033[1;32m[Vous avez 10 minutes pour coder votre programme dans le dossier \033[1;34m"+repo_name+"\033[1;32m]\033[0m")
     start_time = time.monotonic()
-    end_time = start_time + 600
+    end_time = start_time + duration
     while time.monotonic() < end_time:
         remaining_time = end_time - time.monotonic()
         print(f"\033[1;31mTemps restant : {int(remaining_time/60)} minutes")
